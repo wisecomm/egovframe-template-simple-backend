@@ -214,11 +214,23 @@
             <version>1.2</version>
         </dependency>
 
+<!-- danyoh postgresql server version 16.2 -->
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-dbcp2</artifactId>
-			<version>2.12.0</version>
+		    <version>2.9.0</version> <!-- 2.12.0보다 낮은 안정적인 버전 사용 -->
 		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-pool2</artifactId>
+		    <version>2.11.1</version> <!-- commons-dbcp2 2.9.0과 호환되는 버전 -->
+		</dependency>
+		<dependency>
+	        <groupId>org.postgresql</groupId>
+	        <artifactId>postgresql</artifactId>
+	        <version>42.7.3</version>
+    	</dependency>
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -273,20 +285,22 @@
             <version>3.14.0</version>
         </dependency>
 
-		<dependency>
+<!-- 	<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.7.3</version>
 			<classifier>jdk8</classifier>
 		</dependency>
-
+-->
+	
 		<!-- mysql driver -->
-
+<!--
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
+-->
 
 		<!-- oracle 10g driver -->
 		<!--

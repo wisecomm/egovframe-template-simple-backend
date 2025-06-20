@@ -1,0 +1,356 @@
+
+
+-- PostgreSQL 문법에 맞게 전체 테이블 변환
+
+CREATE TABLE lettccmmnclcode (
+  cl_code CHAR(3) PRIMARY KEY,
+  cl_code_nm VARCHAR(60),
+  cl_code_dc VARCHAR(200),
+  use_at CHAR(1),
+  frst_regist_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20),
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20)
+);
+
+CREATE TABLE lettccmmncode (
+  code_id VARCHAR(6) PRIMARY KEY,
+  code_id_nm VARCHAR(60),
+  code_id_dc VARCHAR(200),
+  use_at CHAR(1),
+  cl_code CHAR(3),
+  frst_regist_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20),
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20),
+  CONSTRAINT fk_lettccmmncode_cl_code FOREIGN KEY (cl_code) REFERENCES lettccmmnclcode(cl_code)
+);
+
+CREATE TABLE lettccmmndetailcode (
+  code_id VARCHAR(6) NOT NULL,
+  code VARCHAR(15) NOT NULL,
+  code_nm VARCHAR(60),
+  code_dc VARCHAR(200),
+  use_at CHAR(1),
+  frst_regist_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20),
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20),
+  PRIMARY KEY (code_id, code),
+  CONSTRAINT fk_lettccmmndetailcode_code_id FOREIGN KEY (code_id) REFERENCES lettccmmncode(code_id)
+);
+
+CREATE TABLE letthemplyrinfochangedtls (
+  emplyr_id VARCHAR(20) NOT NULL,
+  change_de VARCHAR(20) NOT NULL,
+  orgnzt_id CHAR(20),
+  group_id CHAR(20),
+  empl_no VARCHAR(20) NOT NULL,
+  sexdstn_code CHAR(1),
+  brthdy CHAR(20),
+  fxnum VARCHAR(20),
+  house_adres VARCHAR(100) NOT NULL,
+  house_end_telno VARCHAR(4),
+  area_no VARCHAR(4),
+  detail_adres VARCHAR(100) NOT NULL,
+  zip VARCHAR(6) NOT NULL,
+  offm_telno VARCHAR(20),
+  mbtlnum VARCHAR(20) NOT NULL,
+  email_adres VARCHAR(50),
+  house_middle_telno VARCHAR(4),
+  pstinst_code CHAR(8),
+  emplyr_sttus_code VARCHAR(15) NOT NULL,
+  esntl_id CHAR(20),
+  PRIMARY KEY (emplyr_id, change_de)
+);
+
+CREATE TABLE lettnauthorgroupinfo (
+  group_id CHAR(20) PRIMARY KEY,
+  group_nm VARCHAR(60) NOT NULL,
+  group_creat_de VARCHAR(20) NOT NULL,
+  group_dc VARCHAR(100)
+);
+
+CREATE TABLE lettnauthorinfo (
+  author_code VARCHAR(30) PRIMARY KEY,
+  author_nm VARCHAR(60) NOT NULL,
+  author_dc VARCHAR(200),
+  author_creat_de VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE lettnbbs (
+  ntt_id NUMERIC(20) NOT NULL,
+  bbs_id CHAR(20) NOT NULL,
+  ntt_no NUMERIC(20),
+  ntt_sj VARCHAR(2000),
+  ntt_cn TEXT,
+  answer_at CHAR(1),
+  parntsctt_no NUMERIC(10),
+  answer_lc INTEGER,
+  sort_ordr NUMERIC(8),
+  rdcnt NUMERIC(10),
+  use_at CHAR(1) NOT NULL,
+  ntce_bgnde VARCHAR(20),
+  ntce_endde VARCHAR(20),
+  ntcr_id VARCHAR(20),
+  ntcr_nm VARCHAR(20),
+  password VARCHAR(200),
+  atch_file_id CHAR(20),
+  frst_regist_pnttm TIMESTAMP NOT NULL,
+  frst_register_id VARCHAR(20) NOT NULL,
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20),
+  PRIMARY KEY (ntt_id, bbs_id)
+);
+
+CREATE TABLE lettnbbsmaster (
+  bbs_id CHAR(20) PRIMARY KEY,
+  bbs_nm VARCHAR(255) NOT NULL,
+  bbs_intrcn VARCHAR(2400),
+  bbs_ty_code CHAR(6) NOT NULL,
+  bbs_attrb_code CHAR(6) NOT NULL,
+  reply_posbl_at CHAR(1),
+  file_atch_posbl_at CHAR(1) NOT NULL,
+  atch_posbl_file_number NUMERIC(2) NOT NULL,
+  atch_posbl_file_size NUMERIC(8),
+  use_at CHAR(1) NOT NULL,
+  tmplat_id CHAR(20),
+  frst_register_id VARCHAR(20) NOT NULL,
+  frst_regist_pnttm TIMESTAMP NOT NULL,
+  last_updusr_id VARCHAR(20),
+  last_updt_pnttm TIMESTAMP
+);
+
+CREATE TABLE lettnbbsmasteroptn (
+  bbs_id CHAR(20) PRIMARY KEY,
+  answer_at CHAR(1) NOT NULL,
+  stsfdg_at CHAR(1) NOT NULL,
+  frst_regist_pnttm TIMESTAMP NOT NULL,
+  last_updt_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20) NOT NULL,
+  last_updusr_id VARCHAR(20)
+);
+
+CREATE TABLE lettnbbsuse (
+  bbs_id CHAR(20) NOT NULL,
+  trget_id CHAR(20) NOT NULL,
+  use_at CHAR(1) NOT NULL,
+  regist_se_code CHAR(6),
+  frst_regist_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20) NOT NULL,
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20),
+  PRIMARY KEY (bbs_id, trget_id),
+  CONSTRAINT fk_lettnbbsuse_bbs_id FOREIGN KEY (bbs_id) REFERENCES lettnbbsmaster(bbs_id)
+);
+
+CREATE TABLE lettnemplyrinfo (
+  emplyr_id VARCHAR(20) PRIMARY KEY,
+  orgnzt_id CHAR(20),
+  user_nm VARCHAR(60) NOT NULL,
+  password VARCHAR(200) NOT NULL,
+  empl_no VARCHAR(20),
+  ihidnum VARCHAR(13),
+  sexdstn_code CHAR(1),
+  brthdy VARCHAR(20),
+  fxnum VARCHAR(20),
+  house_adres VARCHAR(100) NOT NULL,
+  password_hint VARCHAR(100) NOT NULL,
+  password_cnsr VARCHAR(100) NOT NULL,
+  house_end_telno VARCHAR(4) NOT NULL,
+  area_no VARCHAR(4) NOT NULL,
+  detail_adres VARCHAR(100),
+  zip VARCHAR(6) NOT NULL,
+  offm_telno VARCHAR(20),
+  mbtlnum VARCHAR(20) NOT NULL,
+  email_adres VARCHAR(50),
+  ofcps_nm VARCHAR(60),
+  house_middle_telno VARCHAR(4) NOT NULL,
+  group_id CHAR(20),
+  pstinst_code CHAR(8),
+  emplyr_sttus_code VARCHAR(15) NOT NULL,
+  esntl_id CHAR(20) NOT NULL,
+  crtfc_dn_value VARCHAR(20),
+  sbscrb_de TIMESTAMP,
+  CONSTRAINT fk_lettnemplyrinfo_group_id FOREIGN KEY (group_id) REFERENCES lettnauthorgroupinfo(group_id) ON DELETE CASCADE
+);
+
+CREATE TABLE lettnemplyrscrtyestbs (
+  scrty_dtrmn_trget_id VARCHAR(20) PRIMARY KEY,
+  mber_ty_code VARCHAR(15),
+  author_code VARCHAR(30) NOT NULL,
+  CONSTRAINT fk_lettnemplyrscrtyestbs_emplyr_id FOREIGN KEY (scrty_dtrmn_trget_id) REFERENCES lettnemplyrinfo(emplyr_id),
+  CONSTRAINT fk_lettnemplyrscrtyestbs_author_code FOREIGN KEY (author_code) REFERENCES lettnauthorinfo(author_code)
+);
+
+CREATE TABLE lettnentprsmber (
+  entrprs_mber_id VARCHAR(20) PRIMARY KEY,
+  entrprs_se_code CHAR(15),
+  bizrno VARCHAR(10),
+  jurirno VARCHAR(13),
+  cmpny_nm VARCHAR(60) NOT NULL,
+  cxfc VARCHAR(50),
+  zip VARCHAR(6) NOT NULL,
+  adres VARCHAR(100) NOT NULL,
+  entrprs_middle_telno VARCHAR(4) NOT NULL,
+  fxnum VARCHAR(20),
+  induty_code CHAR(15),
+  applcnt_nm VARCHAR(50) NOT NULL,
+  applcnt_ihidnum VARCHAR(13),
+  sbscrb_de TIMESTAMP,
+  entrprs_mber_sttus VARCHAR(15),
+  entrprs_mber_password VARCHAR(200),
+  entrprs_mber_password_hint VARCHAR(100) NOT NULL,
+  entrprs_mber_password_cnsr VARCHAR(100) NOT NULL,
+  group_id CHAR(20),
+  detail_adres VARCHAR(100),
+  entrprs_end_telno VARCHAR(4) NOT NULL,
+  area_no VARCHAR(4) NOT NULL,
+  applcnt_email_adres VARCHAR(50) NOT NULL,
+  esntl_id CHAR(20) NOT NULL,
+  CONSTRAINT fk_lettnentprsmber_group_id FOREIGN KEY (group_id) REFERENCES lettnauthorgroupinfo(group_id) ON DELETE CASCADE
+);
+
+CREATE TABLE lettnfile (
+  atch_file_id CHAR(20) PRIMARY KEY,
+  creat_dt TIMESTAMP NOT NULL,
+  use_at CHAR(1)
+);
+
+CREATE TABLE lettnfiledetail (
+  atch_file_id CHAR(20) NOT NULL,
+  file_sn NUMERIC(10) NOT NULL,
+  file_stre_cours VARCHAR(2000) NOT NULL,
+  stre_file_nm VARCHAR(255) NOT NULL,
+  orignl_file_nm VARCHAR(255),
+  file_extsn VARCHAR(20) NOT NULL,
+  file_cn TEXT,
+  file_size NUMERIC(8),
+  PRIMARY KEY (atch_file_id, file_sn),
+  CONSTRAINT fk_lettnfiledetail_atch_file_id FOREIGN KEY (atch_file_id) REFERENCES lettnfile(atch_file_id)
+);
+
+CREATE TABLE lettngnrlmber (
+  mber_id VARCHAR(20) PRIMARY KEY,
+  password VARCHAR(200) NOT NULL,
+  password_hint VARCHAR(100),
+  password_cnsr VARCHAR(100),
+  ihidnum VARCHAR(13),
+  mber_nm VARCHAR(50) NOT NULL,
+  zip VARCHAR(6) NOT NULL,
+  adres VARCHAR(100) NOT NULL,
+  area_no VARCHAR(4) NOT NULL,
+  mber_sttus VARCHAR(15),
+  detail_adres VARCHAR(100),
+  end_telno VARCHAR(4) NOT NULL,
+  mbtlnum VARCHAR(20) NOT NULL,
+  group_id CHAR(20),
+  mber_fxnum VARCHAR(20),
+  mber_email_adres VARCHAR(50),
+  middle_telno VARCHAR(4) NOT NULL,
+  sbscrb_de TIMESTAMP,
+  sexdstn_code CHAR(1),
+  esntl_id CHAR(20) NOT NULL,
+  CONSTRAINT fk_lettngnrlmber_group_id FOREIGN KEY (group_id) REFERENCES lettnauthorgroupinfo(group_id) ON DELETE CASCADE
+);
+
+CREATE TABLE lettnorgnztinfo (
+  orgnzt_id CHAR(20) PRIMARY KEY,
+  orgnzt_nm VARCHAR(20) NOT NULL,
+  orgnzt_dc VARCHAR(100)
+);
+
+CREATE TABLE lettnschdulinfo (
+  schdul_id CHAR(20) PRIMARY KEY,
+  schdul_se CHAR(1),
+  schdul_dept_id VARCHAR(20),
+  schdul_knd_code VARCHAR(20),
+  schdul_beginde TIMESTAMP,
+  schdul_endde TIMESTAMP,
+  schdul_nm VARCHAR(255),
+  schdul_cn VARCHAR(2500),
+  schdul_place VARCHAR(255),
+  schdul_ipcr_code CHAR(1),
+  schdul_charger_id VARCHAR(20),
+  atch_file_id CHAR(20),
+  frst_regist_pnttm TIMESTAMP,
+  frst_register_id VARCHAR(20),
+  last_updt_pnttm TIMESTAMP,
+  last_updusr_id VARCHAR(20),
+  reptit_se_code CHAR(3)
+);
+
+CREATE TABLE ids (
+  table_name VARCHAR(20) PRIMARY KEY,
+  next_id NUMERIC(30) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE comtecopseq (
+  table_name VARCHAR(20) PRIMARY KEY,
+  next_id NUMERIC(30) NOT NULL DEFAULT 0
+);
+
+-- FK 추가 (ALTER TABLE로 분리)
+ALTER TABLE letthemplyrinfochangedtls
+  ADD CONSTRAINT fk_letthemplyrinfochangedtls_emplyr_id FOREIGN KEY (emplyr_id) REFERENCES lettnemplyrinfo(emplyr_id);
+
+ALTER TABLE lettnbbs
+  ADD CONSTRAINT fk_lettnbbs_bbs_id FOREIGN KEY (bbs_id) REFERENCES lettnbbsmaster(bbs_id);
+
+ALTER TABLE lettnemplyrscrtyestbs
+  ADD CONSTRAINT fk_lettnemplyrscrtyestbs_entrprs FOREIGN KEY (scrty_dtrmn_trget_id) REFERENCES lettnentprsmber(entrprs_mber_id);
+
+ALTER TABLE lettnemplyrscrtyestbs
+  ADD CONSTRAINT fk_lettnemplyrscrtyestbs_gnrl FOREIGN KEY (scrty_dtrmn_trget_id) REFERENCES lettngnrlmber(mber_id);
+
+-- 데이터 입력 예시는 앞서 드린 방식과 동일하게 INSERT문 사용
+
+
+INSERT INTO LETTCCMMNCLCODE VALUES('LET','전자정부 프레임워크 경량환경 템플릿','전자정부 프레임워크 경량환경 템플릿','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM001','등록구분','게시판, 커뮤니티, 동호회 등록구분코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM003','업무구분','업무구분코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM004','게시판유형','게시판유형구분코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM005','템플릿유형','템플릿유형구분코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM009','게시판속성','게시판 속성','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM019','일정중요도','일정중요도 낮음/보통/높음 상태구분','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM030','일정구분','일정구분 코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNCODE VALUES('COM031','반복구분','일정 반복구분 코드','Y','LET','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM001','REGC01','단일 게시판 이용등록','단일 게시판 이용등록','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM001','REGC07','게시판사용자등록','게시판사용자등록','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM003','BBS','게시판','게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM004','BBST01','일반게시판','일반게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM004','BBST02','익명게시판','익명게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM004','BBST03','공지게시판','공지게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM004','BBST04','방명록','방명록','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM005','TMPT01','게시판템플릿','게시판템플릿','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM009','BBSA01','유효게시판','유효게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM009','BBSA02','갤러리','갤러리','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM009','BBSA03','일반게시판','일반게시판','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM019','A','높음','높음','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM019','B','보통','보통','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM019','C','낮음','낮음','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM030','1','회의','회의','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM030','2','세미나','세미나','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM030','3','강의','강의','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM030','4','교육','교육','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM030','5','기타','기타','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM031','1','당일','당일','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM031','2','반복','반복','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM031','3','연속','연속','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTCCMMNDETAILCODE VALUES('COM031','4','요일반복','요일반복','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');
+INSERT INTO LETTNORGNZTINFO VALUES ('ORGNZT_0000000000000','기본조직','기본조직');
+INSERT INTO LETTNAUTHORGROUPINFO VALUES ('GROUP_00000000000000','ROLE_ADMIN','2024-07-31','관리자 그룹입니다');
+INSERT INTO LETTNAUTHORGROUPINFO VALUES ('GROUP_00000000000001','ROLE_USER','2024-07-31','사용자 그룹입니다');
+INSERT INTO LETTNBBSMASTER VALUES('BBSMSTR_AAAAAAAAAAAA','공지사항','공지사항게시판','BBST03','BBSA03','Y','Y',2,5242880,'Y','TMPLAT_BOARD_DEFAULT','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000');
+INSERT INTO LETTNBBSMASTER VALUES('BBSMSTR_BBBBBBBBBBBB','갤러리','갤러리게시판','BBST01','BBSA02','Y','Y',2,5242880,'Y','TMPLAT_BOARD_DEFAULT','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000');
+INSERT INTO LETTNBBSUSE VALUES('BBSMSTR_AAAAAAAAAAAA','SYSTEM_DEFAULT_BOARD','Y','REGC01','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000');
+INSERT INTO LETTNBBSUSE VALUES('BBSMSTR_BBBBBBBBBBBB','SYSTEM_DEFAULT_BOARD','Y','REGC01','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000','2011-08-31 12:00:00.000000000','USRCNFRM_00000000000');
+INSERT INTO LETTNEMPLYRINFO VALUES('admin','ORGNZT_0000000000000','관리자','JfQ7FIatlaE5jj7rPYO8QBABX8yb7bNbQy4AKY1QIfc=','','','F','','','관리자 주소','','','','','','','','','','','','GROUP_00000000000000','00000000','P','USRCNFRM_00000000000','','2011-08-31 00:00:00.000000000');
+INSERT INTO LETTNEMPLYRINFO VALUES('user','ORGNZT_0000000000000','사용자','CgQblGLKpKMbrDVn4Lbm/ZEAeH2yq0M9lvbReMq/zpA=','','','F','','','사용자 주소','','','','','','','','','','','','GROUP_00000000000001','00000000','P','USRCNFRM_00000000001','','2011-08-31 00:00:00.000000000');
+INSERT INTO IDS VALUES('BBS_ID',1);
+INSERT INTO IDS VALUES('FILE_ID',1);
+INSERT INTO IDS VALUES('SAMPLE',1);
+INSERT INTO IDS VALUES('SCHDUL_ID',1);
+INSERT INTO IDS VALUES('TMPLAT_ID',1);
+INSERT INTO COMTECOPSEQ VALUES ('USRCNFRM_ID',20);
+ß
