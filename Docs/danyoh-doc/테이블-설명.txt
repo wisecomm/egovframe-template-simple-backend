@@ -1,0 +1,30 @@
+
+
+
+LETTCCMMNCLCODE            	최상위 일반코드
+LETTCCMMNCODE               	일반코드 
+LETTCCMMNDETAILCODE         	일반코드(디테일)
+
+LETTNEMPLYRINFO             	사용자 정보
+
+LETTNORGNZTINFO 		그룹정보
+LETTNAUTHORGROUPINFO        	그룹코드 (어드민, 사용자)
+
+LETTNBBSMASTER 			계시판 마스트
+LETTNBBSUSE			계시판 사용정보
+
+IDS   				아이디 관리
+COMTECOPSEQ			테이블 시퀀스
+
+
+# 사용하지 않는 테이블
+lettnbbs
+lettnbbsmasteroptn
+lettnemplyrscrtyestbs
+lettnentprsmber
+lettnfile
+lettnfiledetail
+lettngnrlmber
+lettnschdulinfo
+
+
