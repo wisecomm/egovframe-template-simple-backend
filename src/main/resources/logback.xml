@@ -74,6 +74,8 @@
 		<appender-ref ref="CONSOLE" />
 
 		<!-- 위에 설정한 파일 설정 추가 -->
+<!-- danyoh : 파일 로그 잠시 중단  		
 		<appender-ref ref="FILE" />
+ -->		
 	</root>
 </Configuration>
