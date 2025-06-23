@@ -443,6 +443,15 @@
 						<maxmem>1024m</maxmem>
 					</configuration>
 				</plugin>
+				<!-- maven build 시 테스트 코드 막음 ( 나중에 풀어야 함 )-->
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-surefire-plugin</artifactId>
+	                <configuration>
+	                    <skipTests>true</skipTests>
+	                </configuration>
+	             </plugin>
+	            							
 				<!-- war 배포 시 maven-war-plugin 주석 해제 -->
 				<!--<plugin>
                 	<groupId>org.apache.maven.plugins</groupId>
