@@ -10,9 +10,11 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.fdl.security.userdetails.util.EgovUserDetailsHelper;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Service;
 
+import egovframework.com.cmm.LoginVO;
 import egovframework.let.cop.bbs.domain.model.BoardMaster;
 import egovframework.let.cop.bbs.domain.model.BoardMasterVO;
 import egovframework.let.cop.bbs.domain.repository.BBSAddedOptionsDAO;
@@ -306,6 +308,13 @@ public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl i
      * 사용중이지 않은 게시판 속성 정보의 목록을 조회 한다.
      */
     public Map<String, Object> selectNotUsedBdMstrList(BoardMasterVO searchVO) throws Exception {
+    	
+    	// danyoh 로그인 사용자 정보 
+    	LoginVO loginVO = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		log.debug("===>>> danyoh : id = "+loginVO.getId());
+		log.debug("===>>> danyoh : name = "+loginVO.getName());
+    	
+    	
 		List<BoardMasterVO> result = attrbMngDAO.selectNotUsedBdMstrList(searchVO);
 		int cnt = attrbMngDAO.selectNotUsedBdMstrListCnt(searchVO);
 	

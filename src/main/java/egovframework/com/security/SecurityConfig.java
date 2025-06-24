@@ -62,6 +62,8 @@ public class SecurityConfig {
             "/file", //파일 다운로드
             "/etc/**",//사용자단의 회원약관,회원가입,사용자아이디 중복여부체크 URL허용
             
+            "/mro/**",
+
             /* swagger*/
             "/v3/api-docs/**",
             "/swagger-resources",

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserRequestDTO">
+
+
+	<resultMap id="UserList" type="egovframework.let.cop.com.service.BoardUseInfVO">
+		<result property="bbsId" column="user_nm"/>
+	</resultMap>
+	
+	<select id="selectUserList" parameterType="egovframework.let.mro.user.model.UserInfVO" resultMap="UserList">
+		
+            SELECT
+                sys_id, user_id, pw, user_nm, user_se, user_group, expln, eml_addr, last_cntn_dt, pw_last_mdfcn_dt, erp_user_id, vendor_site_id, use_yn, bgng_dt, end_dt, crt_dt, creatr_id, mdfcn_dt, mdfr_id
+            FROM
+                ct_users
+						
+	</select>	
+
+</mapper>
