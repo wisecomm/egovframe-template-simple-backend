@@ -1,4 +1,4 @@
-package egovframework.let.mro.user.service;
+package egovframework.mro.user.service;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,10 +9,11 @@ import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.BoardUseInfVO;
 import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
 import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
-import egovframework.let.mro.user.model.UserInfModel;
-import egovframework.let.mro.user.model.UserInfVO;
+import egovframework.mro.user.service.model.UserInfModel;
+import egovframework.mro.user.service.model.UserInfVO;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 
 import javax.annotation.Resource;
 
@@ -41,7 +42,8 @@ public class MorUserService extends EgovAbstractServiceImpl {
     @Resource(name = "UserInfoDAO")
     private UserInfoDAO userInfoDAO;
 
-    public List<Object> selectUserList(UserInfVO userInfVO) throws Exception {
+//    public List<Object> selectUserList(UserInfVO userInfVO) throws Exception {
+   	public List<EgovMap> selectUserList(UserInfVO userInfVO) throws Exception {
 
 		return userInfoDAO.selectUserList(userInfVO);
     }

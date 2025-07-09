@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mroLoginDAO">
+
+
+	<!-- 로그인 처리를 위한 resultMap -->
+	<resultMap id="login" type="egovframework.com.cmm.LoginVO">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="ihidNum" column="ihidNum"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/>
+		<result property="userSe" column="userSe"/>
+		<result property="orgnztId" column="orgnztId"/>
+		<result property="uniqId" column="uniqId"/>		
+	</resultMap>
+	
+	<!-- 아이디 찾기를 위한 resultMap 
+	<resultMap id="id" class="egovframework.com.cmm.LoginVO">
+		<result property="id" column="id" columnIndex="1"/>
+	</resultMap>
+	-->
+	<!-- 비밀번호 처리를 위한 resultMap 
+	<resultMap id="password" class="egovframework.com.cmm.LoginVO">
+		<result property="password" column="password" columnIndex="1"/>
+	</resultMap>
+	-->
+	<!-- 일반 로그인 -->
+	<select id="actionLogin" resultMap="login">
+		<if test="userSe == &quot;USR&quot;">
+			
+            SELECT a.EMPLYR_ID AS id
+                 , a.USER_NM AS name
+                 , a.PASSWORD AS password
+                 , a.IHIDNUM AS ihidNum
+                 , a.EMAIL_ADRES AS email
+                 , 'USR' AS userSe
+                 , a.ORGNZT_ID AS orgnztId
+                 , a.ESNTL_ID AS uniqId
+                 , a.GROUP_ID AS groupId
+                 , b.GROUP_NM AS groupNm
+              FROM LETTNEMPLYRINFO a
+              LEFT OUTER JOIN 
+				LETTNAUTHORGROUPINFO b
+			  ON a.GROUP_ID = b.GROUP_ID
+             WHERE EMPLYR_ID = #{id}
+               AND PASSWORD = #{password}
+               AND EMPLYR_STTUS_CODE = 'P'
+			
+		</if>
+	</select>
+
+</mapper>

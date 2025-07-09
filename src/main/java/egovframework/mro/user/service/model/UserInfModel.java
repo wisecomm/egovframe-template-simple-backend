@@ -1,4 +1,4 @@
-package egovframework.let.mro.user.model;
+package egovframework.mro.user.service.model;
 
 import java.io.Serializable;
 
