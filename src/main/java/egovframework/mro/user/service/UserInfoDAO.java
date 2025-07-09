@@ -2,9 +2,6 @@ package egovframework.mro.user.service;
 
 import java.util.List;
 
-import egovframework.let.cop.com.service.BoardUseInf;
-import egovframework.let.cop.com.service.BoardUseInfVO;
-import egovframework.mro.user.service.model.UserInfModel;
 import egovframework.mro.user.service.model.UserInfVO;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
@@ -34,7 +31,6 @@ public class UserInfoDAO extends EgovAbstractMapper {
 
 	// EgovMap을 사용하여 카멜케이스 변환 적용
 	public List<EgovMap> selectUserList(UserInfVO userInfVO) throws Exception {
-//	public List<Map<String, Object>> selectUserList(UserInfVO userInfVO) throws Exception {
 		return selectList("UserRequestDTO.selectUserList", userInfVO);
 	}
 	

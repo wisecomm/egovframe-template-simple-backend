@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "이용저 정보 VO")
 @Getter
 @Setter
-public class UserInfVO extends UserInfModel implements Serializable {
+public class UserInfVO implements Serializable {
 
     /**
 	 * serialVersion UID
