@@ -1,20 +1,20 @@
 package egovframework.mro.uat.service;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 
+import egovframework.com.cmm.CommonDao;
 import egovframework.com.cmm.LoginVO;
 
 import egovframework.mro.util.EgovNumberUtil;
 import egovframework.mro.util.EgovStringUtil;
+import lombok.RequiredArgsConstructor;
 import egovframework.mro.util.EgovFileScrty;
 
-@Service("mroLoginService")
+@Service("MroLoginService")
+@RequiredArgsConstructor
 public class MroLoginService {
 
-	@Resource(name = "mroLoginDAO")
-	private MroLoginDAO mroLoginDAO;
+	private final CommonDao commonDao;
 
 	/**
 	 * 일반 로그인을 처리한다
@@ -29,7 +29,7 @@ public class MroLoginService {
 		vo.setPassword(enpassword);
 
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
-		LoginVO loginVO = mroLoginDAO.actionLogin(vo);
+		LoginVO loginVO = commonDao.selectOne("mroLoginDAO.actionLogin", vo);;
 
 		// 3. 결과를 리턴한다.
 		if (loginVO != null && !loginVO.getId().equals("") && !loginVO.getPassword().equals("")) {
@@ -50,7 +50,7 @@ public class MroLoginService {
 	public LoginVO searchId(LoginVO vo) throws Exception {
 
 		// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.
-		LoginVO loginVO = mroLoginDAO.searchId(vo);
+		LoginVO loginVO = commonDao.selectOne("mroLoginDAO.actionLogin", vo);;
 
 		// 2. 결과를 리턴한다.
 		if (loginVO != null && !loginVO.getId().equals("")) {
@@ -73,7 +73,7 @@ public class MroLoginService {
 		boolean result = true;
 
 		// 1. 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답이 DB와 일치하는 사용자 Password를 조회한다.
-		LoginVO loginVO = mroLoginDAO.searchPassword(vo);
+		LoginVO loginVO = commonDao.selectOne("mroLoginDAO.actionLogin", vo);
 		if (loginVO == null || loginVO.getPassword() == null || loginVO.getPassword().equals("")) {
 			return false;
 		}
@@ -96,7 +96,8 @@ public class MroLoginService {
 		pwVO.setId(vo.getId());
 		pwVO.setPassword(enpassword);
 		pwVO.setUserSe(vo.getUserSe());
-		mroLoginDAO.updatePassword(pwVO);
+
+//		mroLoginDAO.updatePassword(pwVO);
 
 		return result;
 	}	

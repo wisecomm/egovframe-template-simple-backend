@@ -33,7 +33,7 @@ public class UserInfVO implements Serializable {
     /**
 	 * serialVersion UID
 	 */
-	private static final long serialVersionUID = -2688781320530443850L;
+	private static final long serialVersionUID = 1L;
 
 	@Schema(description = "검색시작일")
     private String searchBgnDe = "";

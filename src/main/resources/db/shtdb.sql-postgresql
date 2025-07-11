@@ -290,7 +290,6 @@ CREATE TABLE comtecopseq (
   next_id NUMERIC(30) NOT NULL DEFAULT 0
 );
 
--- FK 추가 (ALTER TABLE로 분리)
 ALTER TABLE letthemplyrinfochangedtls
   ADD CONSTRAINT fk_letthemplyrinfochangedtls_emplyr_id FOREIGN KEY (emplyr_id) REFERENCES lettnemplyrinfo(emplyr_id);
 
@@ -303,7 +302,6 @@ ALTER TABLE lettnemplyrscrtyestbs
 ALTER TABLE lettnemplyrscrtyestbs
   ADD CONSTRAINT fk_lettnemplyrscrtyestbs_gnrl FOREIGN KEY (scrty_dtrmn_trget_id) REFERENCES lettngnrlmber(mber_id);
 
--- 데이터 입력 예시는 앞서 드린 방식과 동일하게 INSERT문 사용
 
 
 INSERT INTO LETTCCMMNCLCODE VALUES('LET','전자정부 프레임워크 경량환경 템플릿','전자정부 프레임워크 경량환경 템플릿','Y','2011-08-31 00:00:00.000000000','SYSTEM','2011-08-31 00:00:00.000000000','SYSTEM');

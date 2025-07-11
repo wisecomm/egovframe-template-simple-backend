@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import egovframework.com.cmm.EgovMessageSource;
@@ -24,6 +25,7 @@ import egovframework.com.jwt.EgovJwtTokenUtil;
 import egovframework.mro.uat.service.MroLoginService;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @Tag(name="MroLoginApiController",description = "로그인 관련")
 @RequestMapping("/mrologin")  // URL 프리픽스; 최종 경로는 /auth/login
@@ -34,13 +36,9 @@ public class MroLoginApiController {
 	EgovMessageSource egovMessageSource;
 
 	/** JWT */
-	@Autowired
-    private EgovJwtTokenUtil jwtTokenUtil;
-
+    private final EgovJwtTokenUtil jwtTokenUtil;
 	
-	/** EgovLoginService */
-	@Resource(name = "mroLoginService")
-	private MroLoginService loginService;
+	private final MroLoginService loginService;
 	
 	@Operation(
 			summary = "JWT 로그인",

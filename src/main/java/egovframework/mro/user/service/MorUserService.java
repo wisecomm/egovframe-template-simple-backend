@@ -2,7 +2,11 @@ package egovframework.mro.user.service;
 
 import java.util.List;
 
+import egovframework.com.cmm.CommonDao;
+import egovframework.com.jwt.EgovJwtTokenUtil;
+import egovframework.mro.uat.service.MroLoginService;
 import egovframework.mro.user.service.model.UserInfVO;
+import lombok.RequiredArgsConstructor;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
@@ -29,13 +33,17 @@ import org.springframework.stereotype.Service;
  * </pre>
  */
 @Service("MorUserService")
+@RequiredArgsConstructor
 public class MorUserService extends EgovAbstractServiceImpl {
 	
-    @Resource(name = "UserInfoDAO")
-    private UserInfoDAO userInfoDAO;
+    private final UserInfoDAO userInfoDAO;
+
+    private final CommonDao cmmonDao;
+    
 
    	public List<EgovMap> selectUserList(UserInfVO userInfVO) throws Exception {
-		return userInfoDAO.selectUserList(userInfVO);
+   		return cmmonDao.selectList("UserRequestDTO.selectUserList", userInfVO);
+//		return userInfoDAO.selectUserList(userInfVO);
     }
 
     

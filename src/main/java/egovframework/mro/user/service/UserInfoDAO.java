@@ -6,7 +6,6 @@ import egovframework.mro.user.service.model.UserInfVO;
 
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
-
 import org.springframework.stereotype.Repository;
 
 /**
@@ -29,9 +28,9 @@ import org.springframework.stereotype.Repository;
 @Repository("UserInfoDAO")
 public class UserInfoDAO extends EgovAbstractMapper {
 
-	// EgovMap을 사용하여 카멜케이스 변환 적용
-	public List<EgovMap> selectUserList(UserInfVO userInfVO) throws Exception {
-		return selectList("UserRequestDTO.selectUserList", userInfVO);
+ 	// EgovMap을 사용하여 카멜케이스 변환 적용
+ 	public List<EgovMap> selectUserList(UserInfVO userInfVO) throws Exception {
+ 		return selectList("UserRequestDTO.selectUserList", userInfVO);
 	}
 	
 

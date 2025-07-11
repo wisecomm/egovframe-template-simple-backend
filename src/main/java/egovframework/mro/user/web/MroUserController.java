@@ -76,6 +76,8 @@ public class MroUserController {
 	@GetMapping(value ="selectUserList")
 	public ResultVO selectUserList(HttpServletRequest request,
 			@ModelAttribute UserRequestDTO userRequestDTO) throws Exception {
+		
+		
 		UserInfVO userInfVO = new UserInfVO();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
